@@ -5,8 +5,9 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Retrieve API key from environment variable
+# Retrieve API key and translation prompt from environment variables
 API_KEY = os.getenv("OPENAI_API_KEY")
+TRANSLATION_PROMPT = os.getenv("TRANSLATION_PROMPT")
 
 # Initialize OpenAI client
 client = openai.OpenAI(api_key=API_KEY)
@@ -14,17 +15,9 @@ client = openai.OpenAI(api_key=API_KEY)
 
 def translate_text(text, source_lang="English", target_lang="French"):
     """Translates text using OpenAI's GPT-4 API."""
-    prompt = f"""
-    Please translate the following text from {source_lang} to {target_lang}. 
-    This content is from NutriCheck and is intended for either customers or professionals. 
-    The translation must be perfectly accurate, maintaining the original meaning and intent while ensuring clarity and precision. 
-    The goal is to achieve maximum satisfaction (NPS 10/10).
-
-    Text to translate:
-    {text}
-
-    Please provide only the translation, with no additional comments.
-    """
+    prompt = TRANSLATION_PROMPT.format(
+        source_lang=source_lang, target_lang=target_lang, text=text
+    )
 
     response = client.chat.completions.create(
         model="gpt-4",
