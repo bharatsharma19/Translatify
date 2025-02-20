@@ -11,7 +11,7 @@ A Python-based translation tool powered by OpenAI's GPT-4 API. This script allow
 1. **Clone the repository**
    ```bash
    git clone https://github.com/bharatsharma19/Translatify.git
-   cd your-repo-name
+   cd Translatify/
    ```
 
 2. **Set up a virtual environment (optional but recommended)**
